@@ -2,23 +2,39 @@ package cr.ac.una;
 
 import java.util.LinkedList;
 
-public class SparseMatrix<T> {
+public class SparseMatrix<T extends Number> {
 
     public SparseMatrix(int m, int n, T v) {
         this.m = n;
         this.n = n;
         this.v = v;
+        initMatrix();
     }
 
     public SparseMatrix(int m, int n) {
-        this.m = m;
-        this.n = n;
-        this.v = null;
+        this(m, n, null);
+    }
+
+    private void initMatrix() {
+        list = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            LinkedList<T> elem = new LinkedList<>();
+            for (int j = 0; j < n; j++) {
+                elem.add(null);
+            }
+            list.add(elem);
+        }
     }
 
     public SparseMatrix<T> add(SparseMatrix<T> m) {
-        // TODO
-        throw new UnsupportedOperationException();
+        SparseMatrix<T> res = new SparseMatrix<>(this.m, this.n, this.v);
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                T val = GenericNumber.add(this.get(i, j), m.get(i, j));
+                res.set(i, j, val);
+            }
+        }
+        return res;
     }
 
     public SparseMatrix<T> transpose() {
@@ -27,8 +43,14 @@ public class SparseMatrix<T> {
     }
 
     public SparseMatrix<T> multiply(SparseMatrix<T> m) {
-        // TODO
-        throw new UnsupportedOperationException();
+        SparseMatrix<T> res = new SparseMatrix<>(this.m, this.n, this.v);
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                T val = GenericNumber.multiply(this.get(i, j), m.get(i, j));
+                res.set(i, j, val);
+            }
+        }
+        return res;
     }
 
     public int getRowCount() {
