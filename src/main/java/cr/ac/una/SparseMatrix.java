@@ -78,14 +78,29 @@ public class SparseMatrix<T extends Number> {
     }
 
     boolean equals(SparseMatrix<T> other) {
-        // TODO
-        throw new UnsupportedOperationException();
-
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                T val = get(i, j);
+                if (val == null || !val.equals(other.get(i, j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
         // TODO
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {
+        if (obj.getClass().isInstance(this)) {
+            return equals((SparseMatrix<T>) obj);
+        }
+        return false;
     }
 
     private int m;
