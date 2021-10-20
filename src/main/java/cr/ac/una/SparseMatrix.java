@@ -1,5 +1,7 @@
 package cr.ac.una;
 
+import java.util.LinkedList;
+
 public class SparseMatrix<T> {
 
     public SparseMatrix(int m, int n, T v) {
@@ -11,9 +13,7 @@ public class SparseMatrix<T> {
     public SparseMatrix(int m, int n) {
         this.m = m;
         this.n = n;
-        if (v instanceof Integer || v instanceof Double || v instanceof Float) {
-            this.v = null;
-        }
+        this.v = null;
     }
 
     public SparseMatrix<T> add(SparseMatrix<T> m) {
@@ -61,13 +61,14 @@ public class SparseMatrix<T> {
 
     }
 
-   public  SparseMatrix<T> splice(int m0, int m1, int n0, int n1){
+    public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
         // TODO
-        throw new UnsupportedOperationException(); 
-   }
-
+        throw new UnsupportedOperationException();
+    }
 
     private int m;
     private int n;
     private T v;
-}
+    private LinkedList<LinkedList<T>> list;
+
+};
