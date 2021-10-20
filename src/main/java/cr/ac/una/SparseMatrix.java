@@ -63,13 +63,11 @@ public class SparseMatrix<T extends Number> {
     }
 
     public void set(int m, int n, T v) {
-        // TODO
-        throw new UnsupportedOperationException();
+        list.get(m).set(m, v);
     }
 
     public T get(int m, int n) {
-        // TODO
-        throw new UnsupportedOperationException();
+        return list.get(m).get(n);
     }
 
     @Override
