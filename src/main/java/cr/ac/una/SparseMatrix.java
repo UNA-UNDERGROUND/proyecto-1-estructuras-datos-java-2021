@@ -38,8 +38,14 @@ public class SparseMatrix<T extends Number> {
     }
 
     public SparseMatrix<T> transpose() {
-        // TODO
-        throw new UnsupportedOperationException();
+        SparseMatrix<T> res = new SparseMatrix<>(this.n, this.m, this.v);
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.m; j++) {
+                T val = this.get(j, i);
+                res.set(i, j, val);
+            }
+        }
+        return res;
     }
 
     public SparseMatrix<T> multiply(SparseMatrix<T> m) {
@@ -59,7 +65,6 @@ public class SparseMatrix<T extends Number> {
 
     public int getColumnCount() {
         return n;
-
     }
 
     public void set(int m, int n, T v) {
