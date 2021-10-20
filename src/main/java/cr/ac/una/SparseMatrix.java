@@ -93,8 +93,26 @@ public class SparseMatrix<T extends Number> {
     }
 
     public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
-        // TODO
-        throw new UnsupportedOperationException();
+
+        if (m0 < 0 || m0 > m1 || m1 < m0 && m1 > m || n0 < 0 && n0 > n1 || n1 < n0 && n1 > n) {
+
+            throw new IndexOutOfBoundsException();
+        }
+        int M = m1 - m0;
+        int N = n1 - n0;
+        SparseMatrix<T> res = new SparseMatrix<>(M, N);
+        LinkedList<LinkedList<T>> list = new LinkedList<>();
+
+        for (int i = m0; i < m1; i++) {
+            LinkedList<T> l = new LinkedList<>();
+            for (int j = n0; j < n1; j++) {
+                l.add(this.get(i, j));
+            }
+            list.add(l);
+        }
+        res.list = list;
+        return res;
+
     }
 
     @Override
