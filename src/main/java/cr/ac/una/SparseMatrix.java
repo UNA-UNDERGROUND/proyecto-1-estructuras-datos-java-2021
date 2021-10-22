@@ -51,25 +51,26 @@ public class SparseMatrix<T extends Number> {
         return res;
     }
 
-
-    private List<T> getRow(int row){
+    private List<T> getRow(int row) {
         List<T> vals = new LinkedList<>();
         for (int i = 0; i < m; i++) {
             vals.add(get(row, i));
         }
         return vals;
     }
-    private List<T> getColumn(int col){
+
+    private List<T> getColumn(int col) {
         List<T> vals = new LinkedList<>();
         for (int i = 0; i < m; i++) {
             vals.add(get(i, col));
         }
         return vals;
     }
-    private T multiplyRowCol(List<T> row, List<T> col){
+
+    private T multiplyRowCol(List<T> row, List<T> col) {
         T val = GenericNumber.getDefault();
         for (int i = 0; i < row.size(); i++) {
-            T res = (GenericNumber.multiply(row.get(i) , col.get(i)));
+            T res = (GenericNumber.multiply(row.get(i), col.get(i)));
             val = GenericNumber.add(val, res);
         }
         return val;
@@ -131,7 +132,6 @@ public class SparseMatrix<T extends Number> {
     public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
 
         if (m0 < 0 || m0 > m1 || m1 < m0 && m1 > m || n0 < 0 && n0 > n1 || n1 < n0 && n1 > n) {
-
             throw new IndexOutOfBoundsException();
         }
         int M = m1 - m0;

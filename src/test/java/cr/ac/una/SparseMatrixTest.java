@@ -27,25 +27,6 @@ class SparseMatrixTest {
     }
 
     @Test
-    public void pruebaTraspuesta() {
-        SparseMatrix<Integer> matrix = new SparseMatrix<>(3, 3);
-        int v = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                matrix.set(i, j, v++);
-            }
-        }
-        SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
-        v = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                expected.set(j, i, v++);
-            }
-        }
-        assertEquals(expected, matrix.transpose());
-    }
-
-    @Test
     public void pruebaSuma() {
         SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
         SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
@@ -64,6 +45,25 @@ class SparseMatrixTest {
             }
         }
         assertEquals(expected, matrixA.add(matrixB));
+    }
+
+    @Test
+    public void pruebaTraspuesta() {
+        SparseMatrix<Integer> matrix = new SparseMatrix<>(3, 3);
+        int v = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                matrix.set(i, j, v++);
+            }
+        }
+        SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
+        v = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                expected.set(j, i, v++);
+            }
+        }
+        assertEquals(expected, matrix.transpose());
     }
 
     @Test
@@ -103,5 +103,23 @@ class SparseMatrixTest {
         expected.set(2, 2, 6);
 
         assertEquals(expected, matrixA.multiply(matrixB));
+    }
+
+    @Test
+    public void pruebaSplice() {
+        SparseMatrix<Integer> matrix = new SparseMatrix<>(4, 4);
+        SparseMatrix<Integer> expected = new SparseMatrix<>(2, 2);
+        int v = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                matrix.set(i, j, v++);
+            }
+        }
+        expected.set(0, 0, 0);
+        expected.set(0, 1, 1);
+        expected.set(1, 0, 4);
+        expected.set(1, 1, 5);
+
+        assertEquals(expected, matrix.splice(0, 2, 0, 2));
     }
 }
