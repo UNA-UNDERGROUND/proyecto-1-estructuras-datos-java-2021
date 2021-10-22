@@ -1,5 +1,17 @@
 package cr.ac.una;
 
+/**
+ * GenericNumber es una clase que permite manipulacion de Numeros de manera Generica
+ * <br />
+ * por ejemplo realizar lo siguiente
+ * <ul>
+ *     <li>Obtener el tipo del numero</li>
+ *     <li>crear un numero por defecto</li>
+ *     <li>sumar 2 numeros</li>
+ *     <li>multiplicar 2 numeros</li>
+ * </ul>
+ * el soporte de los Tipos soportados son todos los que heredan de Number
+ */
 public class GenericNumber<T> {
 
     @SuppressWarnings("unchecked")
@@ -7,6 +19,13 @@ public class GenericNumber<T> {
         return ((T) (Integer) (int) 0);
     }
 
+    /**
+     * agrega 2 numeros Genericos
+     * @param <T> el tipo del numero
+     * @param x el primer numero
+     * @param y el segundo numero
+     * @return la suma de los dos numeros (x + b)
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Number> T add(T x, T y) {
         if (x instanceof Integer) {
