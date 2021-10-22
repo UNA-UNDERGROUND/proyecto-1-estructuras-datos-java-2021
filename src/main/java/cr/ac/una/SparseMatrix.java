@@ -82,7 +82,7 @@ public class SparseMatrix<T extends Number> {
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
                 List<T> row = getRow(i);
-                List<T> col = getColumn(j);
+                List<T> col = m.getColumn(j);
                 T val = multiplyRowCol(row, col);
                 res.set(i, j, val);
             }

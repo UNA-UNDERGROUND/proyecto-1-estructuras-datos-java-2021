@@ -1,35 +1,33 @@
 package cr.ac.una;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 class SparseMatrixTest {
     @BeforeEach
     public void init() {
     }
 
-    /** 
-    * Verifica si una matriz retorna las dimensiones correctas
-    */
+    /**
+     * Verifica si una matriz retorna las dimensiones correctas
+     */
     @Test
     public void pruebaDimension() {
-        SparseMatrix<Integer> matrix= new SparseMatrix<>(5, 4); 
+        SparseMatrix<Integer> matrix = new SparseMatrix<>(5, 4);
         assertEquals(5, matrix.getRowCount());
         assertEquals(4, matrix.getColumnCount());
     }
 
     @Test
-    public void pruebaMatrizNula(){
+    public void pruebaMatrizNula() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(1, 1);
         assertEquals(matrix.get(0, 0), 0);
     }
 
     @Test
-    public void pruebaTraspuesta(){
+    public void pruebaTraspuesta() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(3, 3);
         int v = 0;
         for (int i = 0; i < 3; i++) {
@@ -46,8 +44,9 @@ class SparseMatrixTest {
         }
         assertEquals(expected, matrix.transpose());
     }
+
     @Test
-    public void pruebaSuma(){
+    public void pruebaSuma() {
         SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
         SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
         int v = 0;
@@ -66,5 +65,43 @@ class SparseMatrixTest {
         }
         assertEquals(expected, matrixA.add(matrixB));
     }
-}
 
+    @Test
+    public void pruebaMultiplicacion() {
+        SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
+        SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
+        SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
+
+        matrixA.set(0, 0, 2);
+        matrixA.set(0, 1, 0);
+        matrixA.set(0, 2, 1);
+        matrixA.set(1, 0, 3);
+        matrixA.set(1, 1, 0);
+        matrixA.set(1, 2, 0);
+        matrixA.set(2, 0, 5);
+        matrixA.set(2, 1, 1);
+        matrixA.set(2, 2, 1);
+
+        matrixB.set(0, 0, 1);
+        matrixB.set(0, 1, 0);
+        matrixB.set(0, 2, 1);
+        matrixB.set(1, 0, 1);
+        matrixB.set(1, 1, 2);
+        matrixB.set(1, 2, 1);
+        matrixB.set(2, 0, 1);
+        matrixB.set(2, 1, 1);
+        matrixB.set(2, 2, 0);
+
+        expected.set(0, 0, 3);
+        expected.set(0, 1, 1);
+        expected.set(0, 2, 2);
+        expected.set(1, 0, 3);
+        expected.set(1, 1, 0);
+        expected.set(1, 2, 3);
+        expected.set(2, 0, 7);
+        expected.set(2, 1, 3);
+        expected.set(2, 2, 6);
+
+        assertEquals(expected, matrixA.multiply(matrixB));
+    }
+}
