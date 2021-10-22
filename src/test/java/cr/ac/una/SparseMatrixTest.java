@@ -14,20 +14,20 @@ class SparseMatrixTest {
      * Verifica si una matriz retorna las dimensiones correctas
      */
     @Test
-    public void pruebaDimension() {
+    public void testDimension() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(5, 4);
         assertEquals(5, matrix.getRowCount());
         assertEquals(4, matrix.getColumnCount());
     }
 
     @Test
-    public void pruebaMatrizNula() {
+    public void testMatrizNula() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(1, 1);
         assertEquals(matrix.get(0, 0), 0);
     }
 
     @Test
-    public void pruebaSuma() {
+    public void testAdd() {
         SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
         SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
         int v = 0;
@@ -48,7 +48,7 @@ class SparseMatrixTest {
     }
 
     @Test
-    public void pruebaTraspuesta() {
+    public void testTranspose() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(3, 3);
         int v = 0;
         for (int i = 0; i < 3; i++) {
@@ -67,7 +67,7 @@ class SparseMatrixTest {
     }
 
     @Test
-    public void pruebaMultiplicacion() {
+    public void testMultiply() {
         SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
         SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
         SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
@@ -106,7 +106,7 @@ class SparseMatrixTest {
     }
 
     @Test
-    public void pruebaSplice() {
+    public void testSplice() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(4, 4);
         SparseMatrix<Integer> expected = new SparseMatrix<>(2, 2);
         int v = 0;
