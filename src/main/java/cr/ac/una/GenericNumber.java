@@ -1,6 +1,12 @@
 package cr.ac.una;
 
-public class GenericNumber {
+public class GenericNumber<T> {
+
+    @SuppressWarnings("unchecked")
+    public static <T extends Number> T getDefault() {
+        return ((T) (Integer) (int) 0);
+    }
+
     @SuppressWarnings("unchecked")
     public static <T extends Number> T add(T x, T y) {
         if (x instanceof Integer) {
@@ -35,6 +41,7 @@ public class GenericNumber {
         }
         throw new ClassCastException("NaN");
     }
+
     @SuppressWarnings("unchecked")
     public static <T extends Number> T multiply(T x, T y) {
         if (x instanceof Integer) {

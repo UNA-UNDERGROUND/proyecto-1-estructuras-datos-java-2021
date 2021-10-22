@@ -16,10 +16,16 @@ class SparseMatrixTest {
     * Verifica si una matriz retorna las dimensiones correctas
     */
     @Test
-    public void prueba1() {
+    public void pruebaDimension() {
         SparseMatrix<Integer> matrix= new SparseMatrix<>(5, 4); 
         assertEquals(5, matrix.getRowCount());
         assertEquals(4, matrix.getColumnCount());
+    }
+
+    @Test
+    public void pruebaMatrizNula(){
+        SparseMatrix<Integer> matrix = new SparseMatrix<>(1, 1);
+        assertEquals(matrix.get(0, 0), 0);
     }
 }
 
