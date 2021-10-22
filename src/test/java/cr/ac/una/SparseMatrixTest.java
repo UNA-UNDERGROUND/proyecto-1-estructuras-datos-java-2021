@@ -37,14 +37,34 @@ class SparseMatrixTest {
                 matrix.set(i, j, v++);
             }
         }
-        SparseMatrix<Integer> transpose = new SparseMatrix<>(3, 3);
+        SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
         v = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                transpose.set(j, i, v++);
+                expected.set(j, i, v++);
             }
         }
-        assertEquals(transpose, matrix.transpose());
+        assertEquals(expected, matrix.transpose());
+    }
+    @Test
+    public void pruebaSuma(){
+        SparseMatrix<Integer> matrixA = new SparseMatrix<>(3, 3);
+        SparseMatrix<Integer> matrixB = new SparseMatrix<>(3, 3);
+        int v = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                matrixA.set(i, j, v++);
+                matrixB.set(i, j, 10);
+            }
+        }
+        SparseMatrix<Integer> expected = new SparseMatrix<>(3, 3);
+        v = 10;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                expected.set(i, j, v++);
+            }
+        }
+        assertEquals(expected, matrixA.add(matrixB));
     }
 }
 
