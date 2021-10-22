@@ -99,7 +99,7 @@ public class SparseMatrix<T extends Number> {
     }
 
     public void set(int m, int n, T v) {
-        list.get(m).set(m, v);
+        list.get(m).set(n, v);
     }
 
     public T get(int m, int n) {
@@ -119,7 +119,8 @@ public class SparseMatrix<T extends Number> {
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
                 T val = get(i, j);
-                if (val == null || !val.equals(other.get(i, j))) {
+                T o = other.get(i, j);
+                if (val == null || !val.equals(o)) {
                     return false;
                 }
             }
