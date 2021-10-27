@@ -1,3 +1,22 @@
+
+/** 
+ *
+ * (c) 2021
+ * @author Paula Arias Mora
+ * @version 1.0.0 2021-10-24
+ *
+ * -----------------------------------------------
+ * EIF207 Estructuras de Datos
+ * 2do ciclo 2021, grupo 01
+ * Proyecto 1
+ *
+ * 117160835 Arias Mora Maria Paula 
+ * -----------------------------------------------
+ *
+ *
+ */
+
+
 package cr.ac.una;
 
 /**
@@ -61,6 +80,13 @@ public class GenericNumber<T> {
         throw new ClassCastException("NaN");
     }
 
+    /**
+     * multiplica 2 numeros Genericos
+     * @param <T> el tipo del numero
+     * @param x el primer numero
+     * @param y el segundo numero
+     * @return la suma de los dos numeros (x + b)
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Number> T multiply(T x, T y) {
         if (x instanceof Integer) {

@@ -1,3 +1,18 @@
+/** 
+ *
+ * (c) 2021
+ * @author Paula Arias Mora
+ * @version 1.0.0 2021-10-24
+ *
+ * -----------------------------------------------
+ * EIF207 Estructuras de Datos
+ * 2do ciclo 2021, grupo 01
+ * Proyecto 1
+ *
+ * 117160835 Arias Mora Maria Paula 
+ * -----------------------------------------------
+ */
+
 package cr.ac.una;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,9 +25,7 @@ class SparseMatrixTest {
     public void init() {
     }
 
-    /**
-     * Verifica si una matriz retorna las dimensiones correctas
-     */
+
     @Test
     public void testDimension() {
         SparseMatrix<Integer> matrix = new SparseMatrix<>(5, 4);

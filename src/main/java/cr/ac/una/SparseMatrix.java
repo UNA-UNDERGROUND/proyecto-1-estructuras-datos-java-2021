@@ -1,3 +1,18 @@
+/** 
+ *
+ * (c) 2021
+ * @author Paula Arias Mora
+ * @version 1.0.0 2021-10-24
+ *
+ * -----------------------------------------------
+ * EIF207 Estructuras de Datos
+ * 2do ciclo 2021, grupo 01
+ * Proyecto 1
+ *
+ * 117160835 Arias Mora Maria Paula 
+ * -----------------------------------------------
+ */
+
 package cr.ac.una;
 
 import java.util.LinkedList;
@@ -5,6 +20,14 @@ import java.util.List;
 
 public class SparseMatrix<T extends Number> {
 
+    /** 
+     * Crea una matriz usando una dimension especificada
+     * y tomando un valor nulo indicado
+     * 
+     * @param m cantidad de filas
+     * @param n cantidad de columnas
+     * @param v el valor nulo de la matriz
+     */
     public SparseMatrix(int m, int n, T v) {
         this.m = m;
         this.n = n;
@@ -12,10 +35,23 @@ public class SparseMatrix<T extends Number> {
         initMatrix();
     }
 
+    /** 
+     * Crea una matriz usando una dimension especificada
+     * y tomando un valor por defecto disponible para los valores nulos 
+     * 
+     * @param m cantidad de filas
+     * @param n cantidad de columnas
+     */
     public SparseMatrix(int m, int n) {
         this(m, n, GenericNumber.getDefault());
     }
 
+    /**
+     * inicializa la matriz interna usando los parametros
+     * de dimension preestablecidos por la instancia de 
+     * la matríz
+     *
+     */
     private void initMatrix() {
         list = new LinkedList<>();
         for (int i = 0; i < m; i++) {
@@ -27,6 +63,14 @@ public class SparseMatrix<T extends Number> {
         }
     }
 
+    /**
+     * suma la matriz actual con otra matriz <br />
+     * siendo el resultado AxB=C <br />
+     * siendo A esta matriz y C la nueva matriz
+     *
+     * @param m la matriz con la que se sumará (B)
+     * @return la matriz resultado de la suma (C)
+     */
     public SparseMatrix<T> add(SparseMatrix<T> m) {
         int M = this.m > m.m ? this.m : m.m;
         int N = this.n > m.n ? this.n : m.n;
@@ -40,6 +84,13 @@ public class SparseMatrix<T extends Number> {
         return res;
     }
 
+    /**
+     * multiplica la matriz actual con otra matriz <br />
+     * siendo el resultado AxB=C <br />
+     * siendo A esta matriz y C la nueva matriz
+     *
+     * @return la matriz resultado de la multiplicacion (B)
+     */
     public SparseMatrix<T> transpose() {
         SparseMatrix<T> res = new SparseMatrix<>(this.n, this.m, this.v);
         for (int i = 0; i < this.n; i++) {
@@ -51,31 +102,14 @@ public class SparseMatrix<T extends Number> {
         return res;
     }
 
-    private List<T> getRow(int row) {
-        List<T> vals = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            vals.add(get(row, i));
-        }
-        return vals;
-    }
-
-    private List<T> getColumn(int col) {
-        List<T> vals = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            vals.add(get(i, col));
-        }
-        return vals;
-    }
-
-    private T multiplyRowCol(List<T> row, List<T> col) {
-        T val = GenericNumber.getDefault();
-        for (int i = 0; i < row.size(); i++) {
-            T res = (GenericNumber.multiply(row.get(i), col.get(i)));
-            val = GenericNumber.add(val, res);
-        }
-        return val;
-    }
-
+    /**
+     * multiplica la matriz actual con otra matriz <br />
+     * siendo el resultado AxB=C <br />
+     * siendo A esta matriz y C la nueva matriz
+     *
+     * @param m la matriz con la que se multiplicará (B)
+     * @return la matriz resultado de la multiplicacion (C)
+     */
     public SparseMatrix<T> multiply(SparseMatrix<T> m) {
         int M = this.m > m.m ? this.m : m.m;
         int N = this.n > m.n ? this.n : m.n;
@@ -88,6 +122,27 @@ public class SparseMatrix<T extends Number> {
                 res.set(i, j, val);
             }
         }
+        return res;
+    }
+
+    public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
+
+        if (m0 < 0 || m0 > m1 || m1 < m0 && m1 > m || n0 < 0 && n0 > n1 || n1 < n0 && n1 > n) {
+            throw new IndexOutOfBoundsException();
+        }
+        int M = m1 - m0;
+        int N = n1 - n0;
+        SparseMatrix<T> res = new SparseMatrix<>(M, N);
+        LinkedList<LinkedList<T>> list = new LinkedList<>();
+
+        for (int i = m0; i < m1; i++) {
+            LinkedList<T> l = new LinkedList<>();
+            for (int j = n0; j < n1; j++) {
+                l.add(this.get(i, j));
+            }
+            list.add(l);
+        }
+        res.list = list;
         return res;
     }
 
@@ -111,6 +166,50 @@ public class SparseMatrix<T extends Number> {
         }
     }
 
+    /**
+     * recupera una fila de la matriz
+     *
+     * @param row el indice de la fila (0 inclusivo)
+     * @return la fila ordenada en una lista
+     */
+    private List<T> getRow(int row) {
+        List<T> vals = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            vals.add(get(row, i));
+        }
+        return vals;
+    }
+
+    /**
+     * recupera una columna de la matriz
+     *
+     * @param col el indice de la columna (0 inclusivo)
+     * @return la columna ordenada en una lista
+     */
+    private List<T> getColumn(int col) {
+        List<T> vals = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            vals.add(get(i, col));
+        }
+        return vals;
+    }
+
+    /**
+     * multiplica una fila y una columna de la matriz
+     *
+     * @param row el indice de la fila (0 inclusivo)
+     * @param col el indice de la columna (0 inclusivo)
+     * @return el escalar resultado de la multiplicacion
+     */
+    private T multiplyRowCol(List<T> row, List<T> col) {
+        T val = GenericNumber.getDefault();
+        for (int i = 0; i < row.size(); i++) {
+            T res = (GenericNumber.multiply(row.get(i), col.get(i)));
+            val = GenericNumber.add(val, res);
+        }
+        return val;
+    }
+
     @Override
     public String toString() {
         return String.format("SparseMatrix[%d,%d]", m, n);
@@ -127,28 +226,6 @@ public class SparseMatrix<T extends Number> {
             }
         }
         return true;
-    }
-
-    public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
-
-        if (m0 < 0 || m0 > m1 || m1 < m0 && m1 > m || n0 < 0 && n0 > n1 || n1 < n0 && n1 > n) {
-            throw new IndexOutOfBoundsException();
-        }
-        int M = m1 - m0;
-        int N = n1 - n0;
-        SparseMatrix<T> res = new SparseMatrix<>(M, N);
-        LinkedList<LinkedList<T>> list = new LinkedList<>();
-
-        for (int i = m0; i < m1; i++) {
-            LinkedList<T> l = new LinkedList<>();
-            for (int j = n0; j < n1; j++) {
-                l.add(this.get(i, j));
-            }
-            list.add(l);
-        }
-        res.list = list;
-        return res;
-
     }
 
     @Override
