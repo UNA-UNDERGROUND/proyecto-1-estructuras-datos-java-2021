@@ -18,6 +18,9 @@ package cr.ac.una;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementacion LIL (Lista enlazada) de una matriz de tamaño constante
+ */
 public class SparseMatrix<T extends Number> {
 
     /**
@@ -243,11 +246,20 @@ public class SparseMatrix<T extends Number> {
         return val;
     }
 
+    /**
+     * retorna una representacion de la matriz especificada
+     */
     @Override
     public String toString() {
         return String.format("SparseMatrix[%d,%d]", m, n);
     }
 
+    /**
+     * compara la matriz con otra matriz
+     * 
+     * @param other la otra matriz a comparar
+     * @return el resultado de la comparacion
+     */
     boolean equals(SparseMatrix<T> other) {
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
