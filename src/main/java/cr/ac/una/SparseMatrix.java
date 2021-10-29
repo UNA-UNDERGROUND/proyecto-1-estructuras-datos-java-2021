@@ -18,11 +18,14 @@ package cr.ac.una;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementacion LIL (Lista enlazada) de una matriz de tamaño constante
+ */
 public class SparseMatrix<T extends Number> {
 
-    /** 
-     * Crea una matriz usando una dimension especificada
-     * y tomando un valor nulo indicado
+    /**
+     * Crea una matriz usando una dimension especificada y tomando un valor nulo
+     * indicado
      * 
      * @param m cantidad de filas
      * @param n cantidad de columnas
@@ -35,9 +38,9 @@ public class SparseMatrix<T extends Number> {
         initMatrix();
     }
 
-    /** 
-     * Crea una matriz usando una dimension especificada
-     * y tomando un valor por defecto disponible para los valores nulos 
+    /**
+     * Crea una matriz usando una dimension especificada y tomando un valor por
+     * defecto disponible para los valores nulos
      * 
      * @param m cantidad de filas
      * @param n cantidad de columnas
@@ -47,9 +50,30 @@ public class SparseMatrix<T extends Number> {
     }
 
     /**
-     * inicializa la matriz interna usando los parametros
-     * de dimension preestablecidos por la instancia de 
-     * la matríz
+     * Crea una matriz usando la lista especificada y el valor nulo indicado
+     * 
+     * @param list la lista con la cual inicializar la matriz
+     * @param v    el valor nulo de la matriz
+     */
+    public SparseMatrix(LinkedList<LinkedList<T>> list, T v) {
+        this.list = list;
+        this.m = list.size();
+        this.n = list.get(0).size();
+        this.v = v;
+    }
+
+    /**
+     * Crea una matriz usando la lista especificada y el valor nulo por defecto
+     * 
+     * @param list la lista con la cual inicializar la matriz
+     */
+    public SparseMatrix(LinkedList<LinkedList<T>> list) {
+        this(list, GenericNumber.getDefault());
+    }
+
+    /**
+     * inicializa la matriz interna usando los parametros de dimension
+     * preestablecidos por la instancia de la matríz
      *
      */
     private void initMatrix() {
@@ -125,6 +149,16 @@ public class SparseMatrix<T extends Number> {
         return res;
     }
 
+    /**
+     * obtiene una submatriz usando las dimensiones de inicio y fin especificadas en
+     * el método
+     *
+     * @param m0 la fila inicial (inclusiva)
+     * @param m1 la fila final (exclusiva)
+     * @param n0 la columna inicial (inclusiva)
+     * @param n1 la columna final (exclusiva)
+     * @return la matriz resultado del seccionamiento
+     */
     public SparseMatrix<T> splice(int m0, int m1, int n0, int n1) {
 
         if (m0 < 0 || m0 > m1 || m1 < m0 && m1 > m || n0 < 0 && n0 > n1 || n1 < n0 && n1 > n) {
@@ -146,18 +180,42 @@ public class SparseMatrix<T extends Number> {
         return res;
     }
 
+    /**
+     * recupera el numero de filas de la matriz
+     * 
+     * @return la cantidad de filas
+     */
     public int getRowCount() {
         return m;
     }
 
+    /**
+     * recupera el numero de filas de la matriz
+     * 
+     * @return el numero de columnas
+     */
     public int getColumnCount() {
         return n;
     }
 
+    /**
+     * cambia el valor del elemento especificado
+     * 
+     * @param m la filaa destino
+     * @param n la columna destino
+     * @param v el nuevo valor
+     */
     public void set(int m, int n, T v) {
         list.get(m).set(n, v);
     }
 
+    /**
+     * recupera el elemento de la matriz
+     * 
+     * @param m la fila de la matriz
+     * @param n la columna de la matriz
+     * @return
+     */
     public T get(int m, int n) {
         try {
             return list.get(m).get(n);
@@ -210,11 +268,20 @@ public class SparseMatrix<T extends Number> {
         return val;
     }
 
+    /**
+     * retorna una representacion de la matriz especificada
+     */
     @Override
     public String toString() {
         return String.format("SparseMatrix[%d,%d]", m, n);
     }
 
+    /**
+     * compara la matriz con otra matriz
+     * 
+     * @param other la otra matriz a comparar
+     * @return el resultado de la comparacion
+     */
     boolean equals(SparseMatrix<T> other) {
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
