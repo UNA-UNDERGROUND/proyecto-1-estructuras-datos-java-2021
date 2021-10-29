@@ -136,4 +136,39 @@ public final class GenericNumber<T extends Number> {
         }
         throw new ClassCastException("NaN");
     }
+
+    /**
+     * castea un numero a un tipo especifico
+     * 
+     * @param <T> el tipo del numero
+     * @param s   el string del numero
+     * @return el numero casteado al tipo indicado
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends Number> T parseNumber(String s) {
+        T x = getDefault();
+        try {
+            if (x instanceof Integer) {
+                return (T) (Integer) (Integer.parseInt(s));
+            }
+            if (x instanceof Long) {
+                return (T) (Long) (Long.parseLong(s));
+            }
+            if (x instanceof Float) {
+                return (T) (Float) (Float.parseFloat(s));
+            }
+            if (x instanceof Double) {
+                return (T) (Double) (Double.parseDouble(s));
+            }
+            if (x instanceof Byte) {
+                return (T) (Byte) (Byte.parseByte(s));
+            }
+            if (x instanceof Short) {
+                return (T) (Short) (Short.parseShort(s));
+            }
+        } catch (Exception e) {
+            throw new ClassCastException("Non Parsable");
+        }
+        throw new ClassCastException("NaN");
+    }
 }

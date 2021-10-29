@@ -50,6 +50,28 @@ public class SparseMatrix<T extends Number> {
     }
 
     /**
+     * Crea una matriz usando la lista especificada y el valor nulo indicado
+     * 
+     * @param list la lista con la cual inicializar la matriz
+     * @param v    el valor nulo de la matriz
+     */
+    public SparseMatrix(LinkedList<LinkedList<T>> list, T v) {
+        this.list = list;
+        this.m = list.size();
+        this.n = list.get(0).size();
+        this.v = v;
+    }
+
+    /**
+     * Crea una matriz usando la lista especificada y el valor nulo por defecto
+     * 
+     * @param list la lista con la cual inicializar la matriz
+     */
+    public SparseMatrix(LinkedList<LinkedList<T>> list) {
+        this(list, GenericNumber.getDefault());
+    }
+
+    /**
      * inicializa la matriz interna usando los parametros de dimension
      * preestablecidos por la instancia de la matríz
      *
