@@ -31,9 +31,18 @@ import cr.ac.una.SparseMatrix;
  */
 @XmlRootElement(name = "sparse_matrix")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MatrixLoader {
-    public MatrixLoader() {
+public class MatrixSerializer {
+    public MatrixSerializer() {
         init();
+    }
+
+    public <T extends Number> MatrixSerializer(SparseMatrix<T> matrix) {
+        init();
+        for (int i = 0; i < matrix.getRowCount(); i++) {
+            for (int j = 0; j < matrix.getColumnCount(); j++) {
+                entryList.add(new Entry(i, j, matrix.get(i, j).toString()));
+            }
+        }
     }
 
     private void init() {
