@@ -32,10 +32,19 @@ import cr.ac.una.SparseMatrix;
 @XmlRootElement(name = "sparse_matrix")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MatrixSerializer {
+    /**
+     * crea una nueva matriz e inicializa su lista de entradas
+     */
     public MatrixSerializer() {
         init();
     }
 
+    /**
+     * crea una nueva matriz e inicializa su lista con los datos de la matriz
+     * 
+     * @param <T>    el tipo de la matriz
+     * @param matrix la matriz a guardar
+     */
     public <T extends Number> MatrixSerializer(SparseMatrix<T> matrix) {
         init();
         for (int i = 0; i < matrix.getRowCount(); i++) {
@@ -45,12 +54,21 @@ public class MatrixSerializer {
         }
     }
 
+    /**
+     * inicializa la lista de datos de la matriz
+     */
     private void init() {
         if (entryList == null) {
             entryList = new LinkedList<>();
         }
     }
 
+    /**
+     * Crea una nueva matriz con los datos cargados de la lista de entradas interna
+     * 
+     * @param <T> el tipo de valores de la matriz
+     * @return la matriz generada al cargar
+     */
     public <T extends Number> SparseMatrix<T> load() {
         init();
         try {
@@ -68,6 +86,14 @@ public class MatrixSerializer {
         }
     }
 
+    /**
+     * redimensiona la matriz a un nuevo tamaño de ser requerido
+     * 
+     * @param <T>     el tipo de las entradas
+     * @param entries las entradas especificas
+     * @param row     filas necesarias
+     * @param col     columnas necesarias
+     */
     private <T extends Number> void resize(LinkedList<LinkedList<T>> entries, int row, int col) {
         while (entries.size() < (row + 1)) {
             entries.add(new LinkedList<T>());
